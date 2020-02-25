@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Проекты</title>
+<style type="text/css">
+      body {
+        background: #ffffee;
+        </style>
+<link rel="stylesheet" href="news_data/site_umnochan.css" title="Umnochan">
+<link rel="stylesheet" href="menu_data/sitemenu_umnochan.css" title="Umnochan">
+<link rel="alternate stylesheet" href="news_data/site_burichan.css" title="Burichan">
+<link rel="alternate stylesheet" href="menu_data/sitemenu_burichan.css" title="Burichan">
+<link rel="alternate stylesheet" href="news_data/site_futaba.css" title="Futaba">
+<link rel="alternate stylesheet" href="menu_data/sitemenu_futaba.css" title="Futaba">
+<link rel="alternate stylesheet" href="news_data/site_bluemoon.css" title="Bluemoon">
+<link rel="alternate stylesheet" href="menu_data/sitemenu_bluemoon.css" title="Bluemoon">
+<link rel="alternate stylesheet" href="news_data/site_kusaba.css" title="Kusaba">
+<link rel="alternate stylesheet" href="menu_data/sitemenu_kusaba.css" title="Kusaba">
+<script>
+	var style_cookie_site = "kustyle_site";
+</script>
+<script src="news_data/kusaba.js"></script>
+<link rel="shortcut icon" href="https://410chan.org/favicon.ico">
+<script>
+function toggle(button, area) {
+	var tog=document.getElementById(area);
+	if(tog.style.display)    {
+		tog.style.display="";
+	}    else {
+		tog.style.display="none";
+	}
+	button.innerHTML=(tog.style.display)?'+':'&minus;';
+	set_cookie('nav_show_'+area, tog.style.display?'0':'1', 30);
+}
+function showstyleswitcher() {
+	var switcher = document.getElementById('sitestyles');
+	switcher.innerHTML = 'Стили: [<a href="#" onclick="set_stylesheet(\'Umnochan\', false, true);reloadmain();" style="display: inline;" target="_self">U<\/a>] [<a href="#" onclick="set_stylesheet(\'Burichan\', false, true);reloadmain();" style="display: inline;" target="_self">B<\/a>] [<a href="#" onclick="set_stylesheet(\'Futaba\', false, true);reloadmain();" style="display: inline;" target="_self">F<\/a>] [<a href="#" onclick="set_stylesheet(\'Bluemoon\', false, true);reloadmain();" style="display: inline;" target="_self">B<\/a>] [<a href="#" onclick="set_stylesheet(\'Kusaba\', false, true);reloadmain();" style="display: inline;" target="_self">K<\/a>]';
+}
+function removeframes() {
+	var boardlinks = document.getElementsByTagName("a");
+	for(var i=0;i<boardlinks.length;i++) if(boardlinks[i].className == "boardlink") boardlinks[i].target = "_top";
+	
+	document.getElementById("removeframes").innerHTML = 'Frames removed.';
+	
+	return false;
+}
+function reloadmain() {
+	if (parent.main) {
+		parent.main.location.reload();
+	}
+}
+function hidedirs() {
+	set_cookie('tcshowdirs', '', 30);
+	window.location = '/menu.php';
+}
+function showdirs() {
+	set_cookie('tcshowdirs', 'yes', 30);
+	window.location = '/menu.php';
+}
+if (getCookie('tcshowdirs') == 'yes') {
+	window.location = '/menu.php';
+}
+
+</script>
+<!-- base href="https://410chan.org/menu.php" -->
+</head>
+<body>
+
+<h1>Проекты</h1>
+<ul>
+<li><a href="/" target="_top">Главная страница</a></li>
+
+
+<h2><span class="plus" onclick="toggle(this, 'common');" title="Нажмите, чтобы увидеть/скрыть">−</span>&nbsp;Общее</h2>
+<div id="common" style="">
+<ul>
+	<li><a href="/project/cat.htm" class="boardlink" target="otherFrame"> Консольный тамагочи</a></li><br>
+	<ul>
+	<li><a href="/matrix.html" class="boardlink" target="otherFrame"> Матрица умений</a></li><br>
+	<li><a href="/project/spypy.html" class="boardlink" target="otherFrame">Помощник для сисадминов</a></li>
+</ul>
+</div>
+
+
+
+
+
+
+</body></html>

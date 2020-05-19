@@ -1,5 +1,17 @@
 <!DOCTYPE html>
 <html><head>
+
+	<script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>	
+	<script>
+	$(function(){
+		$(".ext").click(function(e) {
+			e.preventDefault();
+			window.open(this.href, '_blank');
+			window.location.href=$(this).attr('rel');
+		});
+	});
+	</script>
+
 	<style>
 			video{
 				position:fixed;
@@ -63,7 +75,7 @@
 	Кот сам погуляет, поест, поспит. 
 	Хорошим дополнением служит музыка, играющая фоном в вашем плеере (рекомендую AIMP). 
 	А чтобы похвастаться с друзьями своими достижениями в игре существует логирование. (Файл log.txt)</c> <br><br>
-	<a href="https://github.com/LencoDigitexer/TamagochiCat">Проект на github </a>
+	<a href="https://github.com/LencoDigitexer/TamagochiCat" class="ext" rel="/project/cat.html">Проект на github </a>
 </center>
 	</div><hr style="clear: both;">
 <th><center>Разработчик - Илья Евсеенко</center></th>

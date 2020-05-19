@@ -1,1 +1,18 @@
-<a href="http://site.ru/" onClick=location.href="http://google.com/" target="_blank">Тадам!</a>
+<html>
+<head>
+	<title>Test page</title>
+	<script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>	
+	<script>
+	$(function(){
+		$(".ext").click(function(e) {
+			e.preventDefault();
+			window.open(this.href, '_blank');
+			window.location.href=$(this).attr('rel');
+		});
+	});
+	</script>
+</head>
+<body>
+ <a href="http://google.com" class="ext" rel="http://yandex.ru">New Window</a>
+</body>
+</html>

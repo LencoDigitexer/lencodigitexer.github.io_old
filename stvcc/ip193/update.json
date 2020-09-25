@@ -1,4 +1,10 @@
 {
-  "updateCurrentVer": "2",
-  "updateUrl": "https://github.com/"
+  "total_count": 1,
+  "incomplete_results": false,
+  "items": [
+    {
+      "updateCurrentVer": "2",
+      "updateUrl": "https://github.com/"
+    }
+  ]
 }

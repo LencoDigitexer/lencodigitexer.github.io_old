@@ -1,323 +1,490 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ru">
 
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Демо: Адаптивные вкладки-табы на CSS3</title>
-    <meta name="author" content="Dobrovoimaster" />
-    <meta name="description" content="Пример создания адаптивных вкладок (табов) исключительно средствами CSS3" />
-    <meta name="keywords" content="табы css, вкладки css3, адаптивные вкладки" />
-    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,600,700&subset=latin,cyrillic" rel="stylesheet" type="text/css">
-    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <style>
-        /* Базовые стили демо-страницы */
-        
-        *,
-        *:before,
-        *:after {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        html,
-        body {
-            height: 100%;
-        }
-        
-        body {
-            font: 14px/1 "Open Sans", sans-serif;
-            color: #555;
-            background: #fafafa;
-        }
-        /* фиксированное верхнее меню*/
-        
-        .top-nav {
-            background: #555555;
-            box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.4);
-            left: 0;
-            opacity: 0.95;
-            padding: 8px;
-            position: fixed;
-            right: 0;
-            top: 0;
-            z-index: 9999;
-        }
-        
-        .topnav-wrapper {
-            margin: 0 auto;
-            max-width: 980px;
-        }
-        
-        .top-logo {
-            color: #ddd;
-            font: bold 16px/20px "Crete Round", serif;
-            padding-left: 10px;
-            text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.5);
-        }
-        
-        .top-logo a {
-            color: #B8B8B8;
-            text-decoration: none;
-        }
-        
-        .top-logo a:hover {
-            color: #ddd;
-        }
-        
-        .topnav-right {
-            float: right;
-        }
-        
-        .right-menu {
-            margin: 0;
-            overflow: hidden;
-        }
-        
-        .right-menu li {
-            float: left;
-            list-style-type: none;
-            margin: 0;
-        }
-        
-        .right-menu li a {
-            color: #B8B8B8;
-            display: block;
-            padding: 0.05em 0.75em;
-            text-decoration: none;
-            text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.3);
-        }
-        
-        .right-menu li a:hover {
-            color: #fff;
-            text-shadow: none;
-        }
-        
-        .right-menu li span {
-            font-size: 16px;
-            line-height: 1.2;
-        }
-        
-        .container {
-            max-width: 980px;
-            margin: 0 auto;
-            padding: 25px 10px 0;
-        }
-        
-        h1 {
-            padding: 50px 0;
-            font-weight: 400;
-            text-align: center;
-        }
-        
-        .info {
-            color: rgba(78, 78, 78, 0.8);
-            width: 100%;
-            margin: 40px auto;
-            text-align: center;
-            font-weight: 300;
-        }
-        
-        .info a {
-            color: #bbb;
-            text-decoration: none;
-        }
-        
-        .info a:hover {
-            color: #888;
-        }
-        /* Конец стилей демо-страницы */
-        /* Базовый контейнер табов */
-        
-        .tabs {
-            min-width: 320px;
-            max-width: 800px;
-            padding: 0px;
-            margin: 0 auto;
-        }
-        /* Стили секций с содержанием */
-        
-        .tabs > section {
-            display: none;
-            padding: 15px;
-            background: #fff;
-            border: 1px solid #ddd;
-        }
-        
-        .tabs > section > p {
-            margin: 0 0 5px;
-            line-height: 1.5;
-            color: #383838;
-            /* прикрутим анимацию */
-            -webkit-animation-duration: 1s;
-            animation-duration: 1s;
-            -webkit-animation-fill-mode: both;
-            animation-fill-mode: both;
-            -webkit-animation-name: fadeIn;
-            animation-name: fadeIn;
-        }
-        /* Описываем анимацию свойства opacity */
-        
-        @-webkit-keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-        
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-        
-        /* Прячем чекбоксы */
-        
-        .tabs > input {
-            display: none;
-            position: absolute;
-        }
-        /* Стили переключателей вкладок (табов) */
-        
-        .tabs > label {
-            display: inline-block;
-            margin: 0 0 -1px;
-            padding: 15px 25px;
-            font-weight: 600;
-            text-align: center;
-            color: #aaa;
-            border: 0px solid #ddd;
-            border-width: 1px 1px 1px 1px;
-            background: #f1f1f1;
-            border-radius: 3px 3px 0 0;
-        }
-        /* Шрифт-иконки от Font Awesome в формате Unicode */
-        
-        .tabs > label:before {
-            font-family: fontawesome;
-            font-weight: normal;
-            margin-right: 10px;
-        }
-        
-        .tabs > label[for*="1"]:before {
-            content: "\f19a";
-        }
-        
-        .tabs > label[for*="2"]:before {
-            content: "\f17a";
-        }
-        
-        .tabs > label[for*="3"]:before {
-            content: "\f13b";
-        }
-        
-        .tabs > label[for*="4"]:before {
-            content: "\f13c";
-        }
-        /* Изменения стиля переключателей вкладок при наведении */
-        
-        .tabs > label:hover {
-            color: #888;
-            cursor: pointer;
-        }
-        /* Стили для активной вкладки */
-        
-        .tabs > input:checked + label {
-            color: #555;
-            border-top: 1px solid #009933;
-            border-bottom: 1px solid #fff;
-            background: #fff;
-        }
-        /* Активация секций с помощью псевдокласса :checked */
-        
-        #tab1:checked ~ #content-tab1,
-        #tab2:checked ~ #content-tab2,
-        #tab3:checked ~ #content-tab3,
-        #tab4:checked ~ #content-tab4,
-        #tab5:checked ~ #content-tab5 {
-            display: block;
-        }
-        /* Убираем текст с переключателей 
-* и оставляем иконки на малых экранах
-*/
-        
-        @media screen and (max-width: 680px) {
-            .tabs > label {
-                font-size: 0;
-            }
-            .tabs > label:before {
-                margin: 0;
-                font-size: 18px;
-            }
-        }
-        /* Изменяем внутренние отступы 
-*  переключателей для малых экранов
-*/
-        
-        @media screen and (max-width: 400px) {
-            .tabs > label {
-                padding: 15px;
-            }
-        }
-    </style>
+	<link rel="icon" href="assets/favicon-32x32.png"/>
+	<link rel="apple-touch-icon" href="assets/favicon-32x32.png"/>
+	<link rel="stylesheet" type="text/css" href="style.css" />
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	
+	<meta name="author" content="lencodigitexer">
+	<meta name="keywords" content="школьное расписание, школа, образование, учебники, колледж">
+	<title>Расписание пар ИП193</title>
+	<meta name="robots" content="INDEX">
+	<!-- Favicons -->
+	<meta name="theme-color" content="#563d7c">
+	
+	<!-- Web Application Manifest -->
+	<link rel="manifest" href="manifest.json">
+	
+	<!-- Yandex.Metrika counter -->
+<script type="text/javascript" >
+	(function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+	m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+	(window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+ 
+	ym(68258095, "init", {
+		 clickmap:true,
+		 trackLinks:true,
+		 accurateTrackBounce:true,
+		 webvisor:true
+	});
+ </script>
+ <noscript><div><img src="https://mc.yandex.ru/watch/68258095" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+ <!-- /Yandex.Metrika counter -->
+	<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+	<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
+	<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+	<style>
+	html {
+		scroll-behavior: smooth
+	}
+	
+	.centr {
+		text-align: center
+	}
+	
+	a {
+		color: #1fd727
+	}
+	
+	.terminal__line {
+		line-height: 1.25;
+		overflow: hidden;
+		width: 0;
+		height: 0;
+		margin: 0;
+		font-weight: bolder;
+		white-space: nowrap;
+		font-family: 'VT323', monospace;
+		font-size: 1.3em
+	}
+	
+	.terminal__line:first-child {
+		width: 20ch
+	}
+	
+	.terminal__line:nth-child(2) {
+		width: 20ch
+	}
+	
+	.terminal__line:nth-child(3) {
+		width: 57ch
+	}
+	
+	.terminal__line:nth-child(4),
+	.terminal__line:nth-child(5),
+	.terminal__line:nth-child(6),
+	.terminal__line:nth-child(7),
+	.terminal__line:nth-child(8),
+	.terminal__line:nth-child(9),
+	.terminal__line:nth-child(10),
+	.terminal__line:nth-child(11) {
+		width: 33ch
+	}
+	
+	.terminal__line {
+		animation: typing 1s steps(30, end), scaleUp .1s forwards
+	}
+	
+	.terminal__line:first-child {
+		animation-timing-function: steps(20, end), ease;
+		animation-delay: 2s
+	}
+	
+	.terminal__line:nth-child(2) {
+		animation-delay: 3s
+	}
+	
+	.terminal__line:nth-child(3) {
+		animation-delay: 3.35s
+	}
+	
+	.terminal__line:nth-child(2),
+	.terminal__line:nth-child(3) {
+		animation-duration: 2.7s, .1s;
+		animation-timing-function: steps(27, end), ease
+	}
+	
+	.terminal__line:nth-child(4) {
+		animation-duration: 2.4s, .1s;
+		animation-timing-function: steps(28, end), ease;
+		animation-delay: 6.35s
+	}
+	
+	.terminal__line:nth-child(5) {
+		animation-duration: 1.1s, .1s;
+		animation-timing-function: steps(7, end), ease;
+		animation-delay: 7.75s
+	}
+	
+	.terminal__line:nth-child(6) {
+		animation-duration: 0.8s, .1s;
+		animation-timing-function: steps(16, end), ease;
+		animation-delay: 8.1s
+	}
+	
+	.terminal__line:nth-child(7) {
+		animation-duration: 0.7s, .1s;
+		animation-timing-function: steps(14, end), ease;
+		animation-delay: 8.9s
+	}
+	
+	.terminal__line:nth-child(8) {
+		animation-duration: 0.95s, .1s;
+		animation-timing-function: steps(19, end), ease;
+		animation-delay: 9.6s
+	}
+	
+	.terminal__line:nth-child(9) {
+		animation-duration: 0.95s, .1s;
+		animation-timing-function: steps(10, end), ease;
+		animation-delay: 10.55s
+	}
+	
+	.terminal__line:nth-child(10) {
+		animation-duration: 0.95s, .1s;
+		animation-timing-function: steps(13, end), ease;
+		animation-delay: 11.05s
+	}
+	
+	.terminal__line:nth-child(11) {
+		animation-duration: 0.95s, .1s;
+		animation-timing-function: steps(13, end), ease;
+		animation-delay: 12.05s
+	}
+	
+	.typewriter div {
+		opacity: 0;
+		transition: 17s;
+		animation: show 3s 1;
+		animation-fill-mode: forwards;
+		animation-delay: 8s
+	}
+	
+	.typewriter h1 {
+		opacity: 0;
+		transition: 17s;
+		animation: show 3s 1;
+		animation-fill-mode: forwards;
+		animation-delay: 10s
+	}
+	
+	.bd-callout-warning {
+		border-left-color: #f0ad4e
+	}
+	
+	.bd-callout {
+		padding: 1.25rem;
+		margin-top: 1.25rem;
+		margin-bottom: 1.25rem;
+		border: 1px solid #eee;
+		border-left-color: #eee;
+		border-left-width: 1px;
+		border-left-width: .25rem;
+		border-radius: .25rem
+	}
+	
+	@keyframes typing {
+		from {
+			width: 0
+		}
+	}
+	
+	@keyframes scaleUp {
+		from {
+			height: 0
+		}
+		to {
+			height: 1.5em
+		}
+	}
+	
+	@keyframes show {
+		0% {
+			opacity: 0
+		}
+		100% {
+			opacity: 1
+		}
+	}
+	</style>
 </head>
 
 <body>
-    <div class="top-nav">
-        <div class="topnav-wrapper">
-            <div class="topnav-right">
-                <ul class="right-menu">
-                    <li><a href="http://dbmast.ru/about" title="Вернуться к изучению деталей ">&laquo; &laquo; Изучить Детали</a></li>
-                </ul>
-            </div>
-            <div class="top-logo"> <a href="http://dbmast.ru/">{ -- dbmast.ru -- }</a> </div>
-        </div>
-        <div class="clear"></div>
-    </div>
-    <div class="container">
-        <h1>
-        Адаптивные вкладки-табы на CSS3
-    </h1>
-        <div class="tabs">
-            <input id="tab1" type="radio" name="tabs" checked>
-            <label for="tab1" title="Wordpress">Понедельник</label>
-            <input id="tab2" type="radio" name="tabs">
-            <label for="tab2" title="Windows">Вторник</label>
-            <input id="tab3" type="radio" name="tabs">
-            <label for="tab3" title="HTML5">Среда</label>
-            <input id="tab4" type="radio" name="tabs">
-            <label for="tab4" title="CSS3">Четверг</label>
-            <input id="tab5" type="radio" name="tabs">
-            <label for="tab5" title="CSS3">Пятница</label>
-
-            <section id="content-tab1">
-                <p> WordPress — система управления содержимым сайта с открытым исходным кодом, распространяемая под GNU GPL. Написана на PHP, в качестве базы данных использует MySQL. </p>
-                <p> Сфера применения — от блогов до достаточно сложных новостных ресурсов и интернет-магазинов. Встроенная система «тем» и «плагинов» вместе с удачной архитектурой позволяет конструировать практически любые проекты. WordPress выпущен под лицензией GPL версии 2. </p>
-            </section>
-            <section id="content-tab2">
-                <p> Microsoft Windows (произносится [майкрософт ви́ндоус]) — семейство проприетарных операционных систем корпорации Microsoft, ориентированных на применение графического интерфейса при управлении. </p>
-                <p> Изначально Windows была всего лишь графической надстройкой для MS-DOS. По состоянию на март 2013 года под управлением операционных систем семейства Windows по данным ресурса NetMarketShare (Net Applications) работает около 90 % персональных компьютеров[1]. Операционные системы Windows работают на платформах x86, x86-64, IA-64, ARM. </p>
-            </section>
-            <section id="content-tab3">
-                <p> HTML5 (англ. HyperText Markup Language, version 5) — язык для структурирования и представления содержимого всемирной паутины. Это пятая версия HTML, последняя (четвёртая) версия которого была стандартизирована в 1997 году. По состоянию на октябрь 2013 года, HTML5 ещё находится в разработке, но, фактически, является рабочим стандартом (англ. HTML Living Standard). Цель разработки HTML5 — улучшение уровня поддержки мультимедиа-технологий, сохраняя при этом удобочитаемость кода для человека и простоту анализа для парсеров. </p>
-                <p> Во всемирной паутине долгое время использовались стандарты HTML 4.01 и XHTML 1.1, и веб-страницы на практике оказывались свёрстаны с использованием смеси особенностей, представленных различными спецификациями, включая спецификации программных продуктов, например веб-браузеров, а также сложившихся общеупотребительных приёмов. HTML5 был создан, как единый язык разметки, который мог бы сочетать синтаксические нормы HTML и XHTML. Он расширяет, улучшает и рационализирует разметку документов, а также добавляет единое API для сложных веб-приложений. </p>
-            </section>
-            <section id="content-tab4">
-                <p> Спецификация CSS3 — это неоспоримое будущее в области декоративного оформления веб-страниц, и ее разработка еще далека от завершения. Большинство модулей все еще продолжает совершенствоваться и модифицироваться, и ни один браузер не поддерживает все модули. Это означает, что CSS3 испытывает такие же сложности, как и HTML5. Веб-разработчикам нужно решать, какие возможности использовать, а какие игнорировать, а также каким образом заполнить зияющие пробелы в браузерной поддержке. </p>
-                <p> CSS3 не является частью спецификации HTML5. Эти два стандарта были разработаны отдельно друг от друга, разными людьми, работающими в разное время в различных местах. Но даже организация W3C призывает веб-разработчиков использовать HTML5 и CSS3 вместе, как часть одной новой волны современного веб-дизайна. </p>
-            </section>
-            <section id="content-tab5">
-                <p> Спецификация CSS3 — это неоспоримое будущее в области декоративного оформления веб-страниц, и ее разработка еще далека от завершения. Большинство модулей все еще продолжает совершенствоваться и модифицироваться, и ни один браузер не поддерживает все модули. Это означает, что CSS3 испытывает такие же сложности, как и HTML5. Веб-разработчикам нужно решать, какие возможности использовать, а какие игнорировать, а также каким образом заполнить зияющие пробелы в браузерной поддержке. </p>
-                <p> CSS3 не является частью спецификации HTML5. Эти два стандарта были разработаны отдельно друг от друга, разными людьми, работающими в разное время в различных местах. Но даже организация W3C призывает веб-разработчиков использовать HTML5 и CSS3 вместе, как часть одной новой волны современного веб-дизайна. </p>
-            </section>
-        </div>
-        <div class="info"> сделано с любовью: <a href="http://twitter.com/dobrovoi"><i class="fa fa-heart"></i> dobrovoi</a> </div>
-    </div>
+	<script>
+		if (navigator.serviceWorker.controller) {
+		console.log('[PWA Builder] active service worker found, no need to register')
+		} else {
+		navigator.serviceWorker.register('sw.js', {
+		scope: './'
+		}).then(function(reg) {
+		console.log('Service worker has been registered for scope:'+ reg.scope);
+		});
+		}
+		</script>
+	<div class="container">
+		<div class="row justify-content-md-center typewriter">
+			<div class="col"> </div>
+		</div>
+		<div class="row">
+			<div class="col"> </div>
+		</div>
+		<div class="row">
+			<div class="col-sm-4">
+				<p id="dmg"></p>
+				<div> </div>
+			</div>
+			<div class="col-sm-8"> </div>
+		</div>
+		<div class="row">
+			<div class="col">
+				<h1 id="n1" class="display-5">Расписание находится в локальном режиме и не обновляется. Актуальная версия находится здесь</h1>
+				<li><a href="https://melkosoftcom.github.io/rasp/ip193/" class="boardlink" target="otherFrame"">Перейти на официальный сайт с расписанием</a></li>
+				<h1 id="n1" class="display-5">Понедельник</h1>
+				<div class="table-responsive" style="
+box-shadow: 0 0 50px 5px rgba(0, 0, 0, 0.5);">
+					<table class="table table-bordered table-hover">
+						<thead class="thead-dark">
+							<tr>
+								<th class="centr" scope="col">№</th>
+								<th scope="col">Время</th>
+								<th scope="col">Пары</th>
+								<th scope="col">Каб.</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<th class="table-warning centr" scope="row" width="5%">1</th>
+								<td width="25%">8:30 - 09:30</td>
+								<td width="70%"></td>
+								<td width="10%" align="center" style="vertical-align:middle;"></td>
+							</tr>
+							<tr>
+								<th class="table-warning centr" scope="row" width="5%">2</th>
+								<td width="25%">09:40 - 10:40</td>
+								<td width="70%">Операционные системы и среды</td>
+								<td width="10%" align="center" style="vertical-align:middle;">210Л</td>
+							</tr>
+							<tr>
+								<th class="table-warning centr" scope="row" width="5%">3</th>
+								<td width="25%">11:10 - 12:10</td>
+								<td width="70%">История</td>
+								<td width="10%" align="center" style="vertical-align:middle;">232</td>
+							</tr>
+							<tr>
+								<th class="table-warning centr" scope="row" width="5%">4</th>
+								<td width="25%">12:20 - 13:20</td>
+								<td width="70%">ИТ</td>
+								<td width="10%" align="center" style="vertical-align:middle;">207Л</td>
+							</tr>
+							<tr>
+								<th class="table-warning centr" scope="row" width="5%">5</th>
+								<td width="25%">13:30 - 14:30</td>
+								<td width="70%">Физкультура</td>
+								<td width="10%" align="center" style="vertical-align:middle;"></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<br>
+				<br>
+				<h1 id="n2" class="display-5">Вторник</h1>
+				<div class="table-responsive" style="
+box-shadow: 0 0 50px 5px rgba(0, 0, 0, 0.5);">
+					<table class="table table-bordered table-hover">
+						<thead class="thead-dark">
+							<tr>
+								<th class="centr" scope="col">№</th>
+								<th scope="col">Время</th>
+								<th scope="col">Пары</th>
+								<th scope="col">Каб.</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<th class="table-warning centr" scope="row" width="5%">1</th>
+								<td width="25%">8:30 - 09:30</td>
+								<td width="70%"></td>
+								<td width="10%" align="center" style="vertical-align:middle;"></td>
+							</tr>
+							<tr>
+								<th class="table-warning centr" scope="row" width="5%">2</th>
+								<td width="25%">09:40 - 10:40</td>
+								<td width="70%">Ин. язык (1 группа)</td>
+								<td width="10%" align="center" style="vertical-align:middle;">302</td>
+							</tr>
+							<tr>
+								<th class="table-warning centr" scope="row" width="5%">3</th>
+								<td width="25%">11:10 - 12:10</td>
+								<td width="70%">Стандартиз., сертиф. и тех.документация</td>
+								<td width="10%" align="center" style="vertical-align:middle;">318</td>
+							</tr>
+							<tr>
+								<th class="table-warning centr" scope="row" width="5%">4</th>
+								<td width="25%">12:20 - 13:20</td>
+								<td width="70%">ЭВМ</td>
+								<td width="10%" align="center" style="vertical-align:middle;">416</td>
+							</tr>
+							<tr>
+								<th class="table-warning centr" scope="row" width="5%">5</th>
+								<td width="25%">13:30 - 14:30</td>
+								<td width="70%">Ин. язык (2 группа)</td>
+								<td width="10%" align="center" style="vertical-align:middle;">302</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<br>
+				<br>
+				<h1 id="n3" class="display-5">Среда</h1>
+				<div class="table-responsive" style="
+box-shadow: 0 0 50px 5px rgba(0, 0, 0, 0.5);">
+					<table class="table table-bordered table-hover">
+						<thead class="thead-dark">
+							<tr>
+								<th class="centr" scope="col">№</th>
+								<th scope="col">Время</th>
+								<th scope="col">Пары</th>
+								<th scope="col">Каб.</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<th class="table-warning centr" scope="row" width="5%">1</th>
+								<td width="25%">8:30 - 09:30</td>
+								<td width="70%"></td>
+								<td width="10%" align="center" style="vertical-align:middle;"></td>
+							</tr>
+							<tr>
+								<th class="table-warning centr" scope="row" width="5%">2</th>
+								<td width="25%">09:40 - 10:40</td>
+								<td width="70%">ИТ</td>
+								<td width="10%" align="center" style="vertical-align:middle;">207Л</td>
+							</tr>
+							<tr>
+								<th class="table-warning centr" scope="row" width="5%">3</th>
+								<td width="25%">11:10 - 12:10</td>
+								<td width="70%">Операционные системы и среды</td>
+								<td width="10%" align="center" style="vertical-align:middle;">210Л</td>
+							</tr>
+							<tr>
+								<th class="table-warning centr" scope="row" width="5%">4</th>
+								<td width="25%">12:20 - 13:20</td>
+								<td width="70%">Основы алгоритмизации и программирования</td>
+								<td width="10%" align="center" style="vertical-align:middle;">316Л</td>
+							</tr>
+							<tr>
+								<th class="table-warning centr" scope="row" width="5%">5</th>
+								<td width="25%">13:30 - 14:30</td>
+								<td width="70%">Стандартиз., сертиф. и тех.документация</td>
+								<td width="10%" align="center" style="vertical-align:middle;">318</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<br>
+				<br>
+				<h1 id="n4" class="display-5">Четверг</h1>
+				<div class="table-responsive" style="
+box-shadow: 0 0 50px 5px rgba(0, 0, 0, 0.5);">
+					<table class="table table-bordered table-hover">
+						<thead class="thead-dark">
+							<tr>
+								<th class="centr" scope="col">№</th>
+								<th scope="col">Время</th>
+								<th scope="col">Пары</th>
+								<th scope="col">Каб.</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<th class="table-warning centr" scope="row" width="5%">1</th>
+								<td width="25%">8:30 - 09:30</td>
+								<td width="70%"></td>
+								<td width="10%" align="center" style="vertical-align:middle;"></td>
+							</tr>
+							<tr>
+								<th class="table-warning centr" scope="row" width="5%">2</th>
+								<td width="25%">09:40 - 10:40</td>
+								<td width="70%">ЭВМ</td>
+								<td width="10%" align="center" style="vertical-align:middle;">416</td>
+							</tr>
+							<tr>
+								<th class="table-warning centr" scope="row" width="5%">3</th>
+								<td width="25%">11:10 - 12:10</td>
+								<td width="70%">Русский язык и культура речи</td>
+								<td width="10%" align="center" style="vertical-align:middle;">228</td>
+							</tr>
+							<tr>
+								<th class="table-warning centr" scope="row" width="5%">4</th>
+								<td width="25%">12:20 - 13:20</td>
+								<td width="70%">ОЭ и ЦС</td>
+								<td width="10%" align="center" style="vertical-align:middle;">Уточнять</td>
+							</tr>
+							<tr>
+								<th class="table-warning centr" scope="row" width="5%">5</th>
+								<td width="25%">13:30 - 14:30</td>
+								<td width="70%"></td>
+								<td width="10%" align="center" style="vertical-align:middle;"></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<br>
+				<br>
+				<h1 id="n5" class="display-5">Пятница</h1>
+				<div class="table-responsive" style="
+box-shadow: 0 0 50px 5px rgba(0, 0, 0, 0.5);">
+					<table class="table table-bordered table-hover">
+						<thead class="thead-dark">
+							<tr>
+								<th class="centr" scope="col">№</th>
+								<th scope="col">Время</th>
+								<th scope="col">Пары</th>
+								<th scope="col">Каб.</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<th class="table-warning centr" scope="row" width="5%">1</th>
+								<td width="25%">8:30 - 09:30</td>
+								<td width="60%">ЭВМ</td>
+								<td width="10%" align="center" style="vertical-align:middle;">416</td>
+							</tr>
+							<tr>
+								<th class="table-warning centr" scope="row" width="5%">2</th>
+								<td width="25%">09:40 - 10:40</td>
+								<td width="60%">Русский язык и культура речи</td>
+								<td width="10%" align="center" style="vertical-align:middle;">228</td>
+							</tr>
+							<tr>
+								<th class="table-warning centr" scope="row" width="5%">3</th>
+								<td width="25%">11:10 - 12:10</td>
+								<td width="60%">Основы алгоритмизации и программирования</td>
+								<td width="10%" align="center" style="vertical-align:middle;">316Л</td>
+							</tr>
+							<tr>
+								<th class="table-warning centr" scope="row" width="5%">4</th>
+								<td width="25%">12:20 - 13:20</td>
+								<td width="60%">История</td>
+								<td width="10%" align="center" style="vertical-align:middle;">232</td>
+							</tr>
+							<tr>
+								<th class="table-warning centr" scope="row" width="5%">5</th>
+								<td width="25%">13:30 - 14:30</td>
+								<td width="60%"></td>
+								<td width="10%" align="center" style="vertical-align:middle;"></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<br>
+				<br>
+				<p><code>Поблагодарить за приложение: <a href="https://sobe.ru/na/lencodigitexer">автора</a></code></p>
+				<p><code>Скачать приложение на андроид: <a href="https://melkosoftcom.github.io/ip193/">КЛИК</a></code></p>
+			</div>
+		</div>
+	</div>
 </body>

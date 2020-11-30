@@ -24,7 +24,27 @@
 	Добро пожаловать на Уютный процесор! Этот сайт является личной страницей юного программиста из России. Тут что - то должно быть написанно, но мне лень.<br><br>
 	В меню сверху вы можете выбрать интересующий вас раздел.<br> Внизу отображается лента новостей. 
 	</div><hr style="clear: both;">
-<script type="text/javascript" src="https://vk.com/js/api/openapi.js?160"></script>
+
+	<iframe src="https://example.com"></iframe>
+
+<script>
+  var iframe = document.body.children[0];
+
+  iframe.onload = function() {
+    try {
+      // не сработает (чтение)
+      alert( iframe.contentWindow.location.href );
+    } catch (e) {
+      alert( "Ошибка при чтении: " + e.message );
+    }
+
+    // сработает (запись)
+    iframe.contentWindow.location.href = 'https://t.me/s/lencodigitexer_channel';
+
+    iframe.onload = null;
+  }
+</script>	
+<!--<script type="text/javascript" src="https://vk.com/js/api/openapi.js?160"></script>-->
 
 <!-- VK Widget
 <div id="vk_groups"></div>
@@ -35,13 +55,13 @@ VK.Widgets.Group("vk_groups", {mode: 4, wide: 1, width: "0,", height: "1000", co
 
 <!-- new vk widget -->
 
-<script type="text/javascript" src="https://vk.com/js/api/openapi.js?165"></script>
+<!--<script type="text/javascript" src="https://vk.com/js/api/openapi.js?165"></script>-->
 
 <!-- VK Widget -->
-<div id="vk_groups"></div>
+<!--<div id="vk_groups"></div>
 <script type="text/javascript">
 VK.Widgets.Group("vk_groups", {mode: 4, wide: 1, width: "0,", height: "1000", color1: 'FFFFEE', color2: '000008', color3: '5A4900'}, 182306529);
 </script>
-
+-->
 
 </body></html>

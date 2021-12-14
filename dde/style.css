@@ -1,0 +1,475 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    outline: none;
+    user-select: none;
+    font-family: "Roboto Mono", sans-serif;
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  .flex {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .maximize-terminal {
+    position: absolute !important;
+    height: auto !important;
+    top: 0 !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    max-width: 100% !important;
+    width: 100% !important;
+    border-radius: 0 !important;
+  }
+
+  .maximize-terminal-header {
+    width: 100% !important;
+    max-width: 100vw !important;
+    border-radius: 0 !important;
+  }
+
+  .minimize-terminal {
+    height: 0 !important;
+    opacity: 0;
+    transform: translateY(60vh);
+  }
+
+  .minimize-taskbar {
+    transform: translateY(90px);
+  }
+
+  .minimize-header {
+    transform: translateY(-22px)
+  }
+
+  .minimize-terminal-header {
+    height: 0 !important;
+    opacity: 0;
+    transform: translateY(60vh);
+  }
+
+  .close-terminal {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  body {
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .background {
+    position: absolute;
+    background: white;
+    width: 100%;
+    height: 100%;
+    background: url(https://cdn.glitch.com/e5118696-1aed-499e-8c73-4a9bd87c7150%2Fbackgroundd.png?v=1601559510610);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    box-shadow: inset 0 0 120px rgba(0, 0, 0, .5);
+    filter: blur(60px) brightness(100);
+  }
+
+  @keyframes unBlur {
+    100% {
+      filter: blur(0)
+    }
+  }
+
+  main {
+    height: 100%;
+    width: 100%;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  header {
+    justify-content: space-between!important;
+    position: absolute;
+    top: 0;
+    height: 22px;
+    width: 100%;
+    margin-top: -22px;
+    padding: 0 12px;
+    background: #c0ddf3;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, .1);
+  }
+
+  .header-content {
+    position: relative;
+    justify-content: space-between;
+    width: 100%;
+    /*max-width: 980px; */
+    margin: auto;
+  }
+
+  header p, b {
+    padding: 0 6px;
+    font-size: 12px;
+    color: black;
+    font-family: 'Open Sans';
+  }
+
+  header b {
+    padding-right: 0;
+  }
+
+  .logo {
+    width: 13px;
+  }
+
+  .date {
+    position: relative;
+    margin-right: 62px;
+    font-size: 13px;
+    top: -1px;
+  }
+
+  .terminal-wrapper {
+    flex-direction: column;
+    width: 100%;
+    max-width: 600px;
+    height: 335px;
+    border-radius: 9px;
+    box-shadow: 0 9px 18px 3px rgba(0, 0, 0, .3);
+    overflow: hidden;
+    transition: opacity 300ms ease-out, box-shadow 150ms ease-out;
+  }
+
+  #terminal {
+    flex-grow: 1.1;
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    margin: 0 30px;
+    background: rgba(24, 26, 32, 0.95);
+    overflow: auto;
+    transition: height 300ms ease-out, max-width 300ms ease-out,
+      width 300ms ease-out, opacity 300ms ease-out, transform 600ms ease-out;
+  }
+
+  .terminal-header {
+    position: relative;
+    justify-content: flex-start;
+    height: 27px;
+    padding: 0 9px;
+    background: linear-gradient(to bottom, #ebebeb, #d0d0d0);
+    border-bottom: 1px solid #bab8ba;
+    width: 100%;
+    transition: height 300ms ease-out, max-width 300ms ease-out,
+      width 300ms ease-out, opacity 300ms ease-out, transform 600ms ease-out;
+  }
+
+  .terminal-header-path-wrapper {
+    width: 100%;
+  }
+
+  .terminal-header-folder-img {
+    width: 18px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, .3);
+  }
+
+  .terminal-header-path {
+    color: #5d5d5d;
+    letter-spacing: -0.08em;
+    margin-left: 4px;
+    font-size: 14px;
+  }
+
+  .maximize-icon {
+    width: 7px;
+    position: relative;
+    top: .5px;
+  }
+
+  .terminal-btns {
+    position: absolute;
+    height: 100%;
+  }
+
+  .terminal-btn {
+    position: relative;
+    height: 15px;
+    width: 15px;
+    margin: 0 4px;
+    border-radius: 50%;
+    transition: 150ms ease-out;
+  }
+
+  .terminal-btns:hover .terminal-icon {
+    opacity: .8;
+  }
+
+  .terminal-close-btn {
+    background: #ff6059;
+    border: 1px solid #db524c;
+  }
+
+  .terminal-min-btn {
+    background: #ffbe2e;
+    border: 1px solid #e6b857;
+  }
+
+  .terminal-max-btn {
+    background: #29c941;
+    border: 1px solid #4dc35d;
+  }
+
+  .terminal-icon {
+    position: relative;
+    left: .3px;
+    font-size: 9px;
+    color: rgba(0, 0, 0, 0.4);
+    opacity: 0;
+    transition: 150ms ease-out;
+  }
+
+  .terminal-body {
+    padding: 6px 12px;
+    overflow: auto;
+  }
+
+  .path-input-wrapper {
+    justify-content: flex-start;
+  }
+
+  .path {
+    white-space: nowrap;
+    letter-spacing: 1px;
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  .path-user {
+    color: #3AEA4A;
+  }
+
+  .path-symbol {
+    color: #5b95a8;
+  }
+
+  .input-caret-wrapper {
+    align-items: flex-end;
+    position: relative;
+  }
+
+  .input {
+    position: relative;
+    top: 1px;
+    left: 3px;
+    border: none;
+    font-size: 16px;
+    color: rgba(255, 255, 255, 0.8);
+    background: transparent;
+    caret-color: transparent;
+    min-width: 1px;
+    line-height: 18px;
+    word-break: break-all;
+    overflow: hidden;
+  }
+
+  .input > div:first-child {
+    display: none;
+  }
+
+  .input-unactive {
+    pointer-events: none;
+    opacity: 0.5;
+    position: relative;
+    left: 3px;
+    top: 1px;
+  }
+
+  .caret {
+    position: relative;
+    left: 3px;
+    width: 9px;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.8);
+    animation: caret-blink 1s ease-out infinite;
+  }
+
+  .taskbar {
+    position: absolute;
+    bottom: -80px;
+    z-index: 3;
+    height: 80px;
+    background: linear-gradient(to right, rgba(67, 100, 138, .8), rgba(77, 104, 133, .8));
+    border-top-left-radius: 9px;
+    border-top-right-radius: 9px;
+    width: 720px;
+  }
+
+  .taskbar-terminal-icon {
+    width: 60px;
+    cursor: pointer;
+    transition: 300ms ease-out;
+  }
+
+  .taskbar-terminal-icon:hover {
+    transform: scale(1.1) translateY(-6px);
+  }
+
+  .taskbar-icon-wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .icon-shadow {
+    position: absolute;
+    z-index: -1;
+    transform: translateY(70px) scaleY(-1);
+  }
+
+  .icon-shadow-wrapper {
+    position: absolute;
+  }
+
+  .icon-shadow-fade {
+    position: absolute;
+    width: 70px;
+    height: 60px;
+    background: linear-gradient(rgba(255, 255, 255, 0.5) 40%, #818d98 80%);
+    transform: translateY(70px);
+    border-radius: 3px;
+  }
+
+  .taskbar-border {
+    z-index: 3;
+    opacity: 1;
+    bottom: -3px;
+  }
+
+  .help-separator {
+    opacity: 0.5;
+  }
+
+  .active-icon {
+    width: 6px;
+    height: 6px;
+    background: #000011;
+    border-radius: 50%;
+    position: absolute;
+    bottom: 3px;
+    opacity: 0;
+  }
+
+  .header-icons {
+    position: absolute;
+    right: 0;
+    width: 250px;
+  }
+
+  .loading-screen {
+    position: absolute;
+    flex-direction: column;
+    z-index: 99;
+    height: 100%;
+    width: 100%;
+    background: white;
+  }
+
+  .loading-logo-color {
+    fill: black;
+  }
+
+  .loading-logo-bar-wrapper {
+    flex-direction: column;
+  }
+
+  .loading-logo {
+    width: 80px;
+  }
+
+  .loading-bar {
+    width: 180px;
+    height: 6px;
+    margin-top: 60px;
+    border-radius: 18px;
+    background: rgba(0, 0, 0, .3);
+  }
+
+  .loading-bar-thumb {
+    background: black;
+    border-radius: 18px;
+    height: 100%;
+    animation: loadingBar 3s ease-out forwards;
+  }
+
+  .blink {
+    width: 5px;
+    height: 15px;
+    display: inline-block;
+    background-color: white;
+  }
+
+  @keyframes caret-blink {
+    0%,
+    40% {
+      opacity: 1;
+    }
+
+    60%,
+    100% {
+      opacity: 0;
+    }
+  }
+
+  @keyframes terminalShake {
+    0% {
+      transform: translateX(0);
+    }
+    20% {
+      transform: translateX(-12px);
+    }
+    40% {
+      transform: translateX(12px);
+    }
+    60% {
+      transform: translateX(-6px);
+    }
+    80% {
+      transform: translateX(6px);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes taskbarIconClick {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(0.8);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+
+  @keyframes loadingBar {
+    0% {
+      width: 0;
+    }
+    20%, 25% {
+      width: 20%;
+    }
+    36% {
+      width: 25%;
+    }
+    40% {
+      width: 32%;
+    }
+    80%, 85% {
+      width: 80%;
+    }
+    100% {
+      width: 100%;
+    }
+  }
